@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  agent-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/models/model-q4_k_m.gguf
+      - N_CTX=2048
+      - N_THREADS=4
+      - TEMPERATURE=0.1
+    volumes:
+      - ./backend:/app  # For local dev reload
+    # Simulating resource constraints for edge execution
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 3G

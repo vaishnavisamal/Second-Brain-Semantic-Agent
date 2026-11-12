@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Brain Semantic Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <div class="logo"></div>
+                <h2>Vault Agent</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><span class="icon">📝</span> Notes</li>
+                <li><span class="icon">🕸️</span> Graph View</li>
+                <li><span class="icon">⚙️</span> Settings</li>
+            </ul>
+            
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <span>Agent Online (Emulator)</span>
+            </div>
+            
+            <div class="metrics-panel">
+                <h3>Edge Inference Stats</h3>
+                <div class="metric">
+                    <span>Latency (TTFT)</span>
+                    <strong id="metric-ttft">0 ms</strong>
+                </div>
+                <div class="metric">
+                    <span>Tokens/Sec</span>
+                    <strong id="metric-tps">0.0</strong>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Editor Area -->
+        <main class="editor-pane">
+            <header class="editor-header">
+                <input type="text" class="note-title" placeholder="Untitled Note" value="Meeting Notes">
+                <button id="analyze-btn" class="primary-btn">Ask Agent ✨</button>
+            </header>
+            
+            <div class="editor-content">
+                <textarea id="markdown-input" placeholder="Start typing your markdown note here..."># Weekly Engineering Sync
+Attendees: Alice, Bob, Charlie
+
+Updates:
+- Finished the auth module migration to OAuth2. Need review on PR #45.
+- Working on the frontend dashboard redesign. Delay due to missing Figma assets.
+- Investigating the database deadlock issue seen in production last night.
+
+Action Items:
+- [ ] Review PR (Bob)
+- [ ] Post RCA for database issue (Charlie)
+</textarea>
+            </div>
+        </main>
+
+        <!-- Semantic Agent Sidebar -->
+        <aside class="agent-pane">
+            <div class="agent-header">
+                <h3>Semantic Analysis</h3>
+                <span class="badge">AI Generated</span>
+            </div>
+            
+            <div class="agent-content" id="agent-output">
+                <div class="placeholder-state">
+                    <span class="placeholder-icon">🤖</span>
+                    <p>Click "Ask Agent" to analyze this note.</p>
+                </div>
+                
+                <!-- Results will be injected here -->
+                <div class="results-container hidden" id="results-container">
+                    <div class="result-section">
+                        <h4><span class="icon">📁</span> Category</h4>
+                        <div class="category-pill" id="out-category">-</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <h4><span class="icon">🏷️</span> Semantic Tags</h4>
+                        <div class="tags-container" id="out-tags">
+                            <!-- Tags go here -->
+                        </div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <h4><span class="icon">🔗</span> Suggested Backlinks</h4>
+                        <div class="links-container" id="out-links">
+                            <!-- Links go here -->
+                        </div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <h4><span class="icon">📝</span> Brief Summary</h4>
+                        <p class="summary-text" id="out-summary">-</p>
+                    </div>
+                    
+                    <div class="result-section json-section">
+                        <h4><span class="icon">⚙️</span> Raw JSON Payload</h4>
+                        <pre><code id="out-json">{}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="loading-state hidden" id="loading-state">
+                    <div class="spinner"></div>
+                    <p>Analyzing note content...</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
